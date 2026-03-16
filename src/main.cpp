@@ -26,7 +26,11 @@ int main() {
 		  break;
 	  else if (command == "echo")
 	  {
-		  std::cout << input.substr(space_index + 1) << "\n";
+		  if (space_index == std::string::npos)
+			  std::cout << "\n";
+		  else
+			std::cout << input.substr(space_index + 1) << "\n";
+
 		  continue;
 	  }
 
