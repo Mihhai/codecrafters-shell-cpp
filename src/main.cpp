@@ -24,12 +24,25 @@ int main() {
 
 	  if (command == "exit")
 		  break;
-	  else if (command == "echo")
+	  if (command == "echo")
 	  {
 		  if (space_index == std::string::npos)
 			  std::cout << "\n";
 		  else
 			std::cout << input.substr(space_index + 1) << "\n";
+
+		  continue;
+	  }
+	  else if (command == "type")
+	  {
+		  std::string content = input.substr(space_index + 1);
+		  if (content == "echo" || content == "type" || content == "exit")
+		  {
+			  std::cout << content << " is a shell builtin\n";
+		  }
+		  else {
+			  std::cout << content << ": " << "not found\n";
+		  }
 
 		  continue;
 	  }
