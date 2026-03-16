@@ -10,8 +10,10 @@ int main() {
   while (true) {
 	  std::cout << "$ ";
 	  std::getline(std::cin, command);
+
 	  if (command == "exit")
-		  exit;
+		  break;
+
 	  std::cout << command << ": " << "not found\n";
   }
 }
