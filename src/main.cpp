@@ -27,7 +27,7 @@ int main()
 			break;
 		if (command == "echo")
 		{
-			for(int i =0; i < tokens.size(); ++i)
+			for(int i = 1; i < tokens.size(); ++i)
 				std::cout << " " << tokens[i];
 			continue;
 		}
