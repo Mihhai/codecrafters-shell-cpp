@@ -27,7 +27,8 @@ int main()
 			break;
 		if (command == "echo")
 		{
-			std::cout << tokens[1];
+			for(int i =0; i < tokens.size(); ++i)
+				std::cout << " " << tokens[i];
 			continue;
 		}
 		else if (command == "type")

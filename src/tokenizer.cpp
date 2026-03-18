@@ -62,8 +62,11 @@ public:
 		if (!token.empty())
 		{
 			result.emplace_back(token);
+			//temporary, in case quotes are not closed at eoi it still extracts the token
 		}
 
 		return result;
 	}
+
+	// add non state transition tokenizer method
 };
