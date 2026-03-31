@@ -20,30 +20,29 @@ int main()
 		std::cout << "$ ";
 		std::getline(std::cin, input);
 		std::string command;
-		auto tokens = CommandLineTokenizer::tokenize_with_states(input);
-		command = tokens[0];
+		std::string args;
+		CommandLineTokenizer::parse_command(input, command, args);
+
 
 		if (command == "exit")
 			break;
 		if (command == "echo")
 		{
-			for(int i = 1; i < tokens.size(); ++i)
-				std::cout << " " << tokens[i];
-			continue;
+			std::cout << args << "\n";
 		}
 		else if (command == "type")
 		{
-			if (tokens[1] == "echo" || tokens[1] == "type" || tokens[1] == "exit")
+			if (args == "echo" || args == "type" || args == "exit")
 			{
-				std::cout << tokens[1] << " is a shell builtin\n";
+				std::cout << args << " is a shell builtin\n";
 			}
 			else {
-				std::cout << tokens[1] << ": " << "not found\n";
+				std::cout << args << ": " << "not found\n";
 			}
 
 			continue;
 		}
-
-		std::cout << command << ": " << "not found\n";
+		else
+			std::cout << command << ": " << "not found\n";
 	}
 }

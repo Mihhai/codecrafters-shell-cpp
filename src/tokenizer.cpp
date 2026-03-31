@@ -1,5 +1,7 @@
 #include <vector>
+#include <iostream>
 #include <string>
+#include <sstream>
 
 class CommandLineTokenizer {
 private:
@@ -66,6 +68,25 @@ public:
 		}
 
 		return result;
+	}
+
+	static void parse_command(
+		const std::string& input,
+		std::string& command,
+		std::string& args)
+	{
+		command = "";
+		args = "";
+
+		std::stringstream input_stream(input);
+
+		if (input_stream >> command)
+		{
+			std::getline(input_stream >> std::ws, args);
+			return;
+		}
+
+		std::cout << "Could not read command from input\n";
 	}
 
 	// add non state transition tokenizer method
