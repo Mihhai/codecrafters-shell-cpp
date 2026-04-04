@@ -1,7 +1,15 @@
 #include <vector>
 #include <iostream>
+#include <filesystem>
 #include <string>
 #include <sstream>
+
+
+#ifdef _WIN32
+    constexpr char path_delimiter = ';';
+#else
+    constexpr char path_delimiter = ':';
+#endif
 
 class CommandLineTokenizer {
 private:
@@ -89,5 +97,16 @@ public:
 		std::cout << "Could not read command from input\n";
 	}
 
-	// add non state transition tokenizer method
+	static std::vector<std::filesystem::path> extract_paths_from_env(const char* env_paths)
+	{
+		std::vector<std::filesystem::path> paths;
+		std::stringstream env_paths_stream(env_paths);
+
+		for(std::string path; std::getline(env_paths_stream >> std::ws, path , path_delimiter); )
+		{
+			paths.push_back(std::filesystem::path(path));
+		}
+
+		return paths;
+	}
 };

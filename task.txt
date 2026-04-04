@@ -1,0 +1,43 @@
+In this stage, you'll extend the type builtin to search for executable files using PATH.
+
+The PATH Environment Variable
+The PATH environment variable specifies a list of directories where the shell should look for executable programs.
+
+For example, if the PATH is set to /dir1:/dir2:/dir3, the shell would search for executables in /dir1, then /dir2, and finally /dir3, in that order.
+
+Searching for Executables
+When type receives a command input, your shell must follow these steps:
+
+Check if the command is a builtin command (like exit or echo). If it is, report it as a builtin (<command> is a shell builtin) and stop.
+If the command is not a builtin, your shell must go through every directory in PATH. For each directory:
+Check if a file with the command name exists.
+Check if the file has execute permissions.
+If the file exists and has execute permissions, print <command> is <full_path> and stop.
+If the file exists but lacks execute permissions, skip it and continue to the next directory.
+If no executable is found in any directory, print <command>: not found.
+For example:
+
+$ type grep
+grep is /usr/bin/grep
+$ type invalid_command
+invalid_command: not found
+$ type echo
+echo is a shell builtin
+Tests
+The tester will execute your program with a custom PATH like this:
+
+PATH="/usr/bin:/usr/local/bin:$PATH" ./your_program.sh
+It will then send a series of type commands to your shell:
+
+$ type ls
+ls is /usr/bin/ls
+$ type valid_command
+valid_command is /usr/local/bin/valid_command
+$ type invalid_command
+invalid_command: not found
+$
+The tester will verify that the type command correctly identifies executable files in the PATH:
+
+Executable files in PATH are reported with their full path (<command> is <full_path>).
+Files without execute permissions are skipped.
+Non-existent commands print the <command>: not found message.
